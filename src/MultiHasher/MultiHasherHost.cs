@@ -8,12 +8,13 @@ using FarNet.Tools;
 
 namespace MultiHasher
 {
-	[ModuleHost(Load = false)]
 	public class MultiHasherHost : ModuleHost
 	{
 		public static IListMenu HashMenu;
 
-		public override void Connect()
+		public override bool ToLoad => false;
+
+		public MultiHasherHost()
 		{
 			Dictionary<string, Func<HashAlgorithm>> hashAlgorithms = new Dictionary<string, Func<HashAlgorithm>>()
 			{
@@ -31,10 +32,6 @@ namespace MultiHasher
 				HashMenu.Add(hash.Key, HashMenuHandler).Data = hash.Value;
 			}
 			HashMenu.Title = "Select Hash Algorythm";
-		}
-
-		public override void Disconnect()
-		{
 		}
 
 		private static void HashMenuHandler(object sender, EventArgs e)

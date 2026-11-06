@@ -1,20 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<FarHome Condition="'$(FarHome)' == ''">D:\Far</FarHome>
-		<FarNetModules Condition="'$(FarNetModules)' == ''">$(FarHome)\FarNet\Modules</FarNetModules>
-		<MyOutDir>$(FarNetModules)\$(AssemblyName)</MyOutDir>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
+		<GenerateDependencyFile>false</GenerateDependencyFile>
 	</PropertyGroup>
 	<ItemGroup>
-		<Reference Include="$(FarHome)\FarNet\FarNet.dll">
+		<PackageReference Include="FarNet" Version="10.1.0" GeneratePathProperty="true">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>none</IncludeAssets>
+		</PackageReference>
+		<Reference Include="FarNet">
+			<HintPath>$(PkgFarNet)\tools\FarHome\FarNet\FarNet.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>
-	<ItemGroup>
-		<MyItem Include="$(OutDir)\$(AssemblyName).dll" />
-		<MyItem Include="$(OutDir)\$(AssemblyName).pdb" />
-	</ItemGroup>
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Copy DestinationFolder="$(MyOutDir)" SourceFiles="@(MyItem)" SkipUnchangedFiles="true" />
-	</Target>
 </Project>
